@@ -105,11 +105,11 @@ app.get('/area', async (req, res) => {
     // Get unique identifier, we use this uniqueId later to get the plling cites
     const uniqueId = '2152f96f-50c7-4d76-9e18-f7033bd14428';
 
-    // Respond with a URL for polling the result
-    res.status(202).json({ resultsUrl: `${server}/area-result/${uniqueId}` });
-
     // Calculate distance from the "from" city to all other cities in the background
     calculateAndStoreCitiesWithinDistance(fromCity, distance, uniqueId);
+
+    // Respond with a URL for polling the result
+    res.status(202).json({ resultsUrl: `${server}/area-result/${uniqueId}` });
 
   } catch (error) {
     console.error(error);
@@ -181,8 +181,7 @@ function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Function to calculate and store cities within the specified distance in the background
-function calculateAndStoreCitiesWithinDistance(fromCity, distance, uniqueId) {
-
+async function calculateAndStoreCitiesWithinDistance(fromCity, distance, uniqueId) {
 
     const citiesWithinDistance = addressesData.filter((city) => {
       // Exclude the "from" city itself
