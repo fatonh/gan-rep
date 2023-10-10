@@ -50,7 +50,7 @@ const server = `${protocol}://${host}:${port}`;
   // result we expect to get a url that can be polled for the final result
   result = await fetch(`${server}/area?from=${city.guid}&distance=250`, {
     headers: { 'Authorization': 'bearer dGhlc2VjcmV0dG9rZW4=' },
-    timeout: 40
+    timeout: 25
   });
 
   // so far so good
